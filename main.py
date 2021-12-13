@@ -175,7 +175,9 @@ class Clock(tk.Tk):
         illuminated_letters = list()
 
         illuminated_letters.extend(self.translate_hours(hours=hours))
-        illuminated_letters.extend(self.translate_minutes(minutes=minutes))
+
+        if minutes != 0:
+            illuminated_letters.extend(self.translate_minutes(minutes=minutes))
 
         if seconds % 2 == 0:
             illuminated_letters.extend([[11, 18]])  # Faz o último ponto piscar
@@ -200,8 +202,9 @@ class Clock(tk.Tk):
         seconds = int(time.strftime("%S", current_time))
 
         # Teste do relógio:
-        # hours = 0  # 0 a 23
-        # minutes = seconds
+        # import random
+        # hours = random.randint(0, 23)
+        # minutes = random.randint(0, 59)
 
         illuminated_letters = self.translate_time(
             hours=hours, minutes=minutes, seconds=seconds
