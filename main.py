@@ -7,9 +7,10 @@ COLOR_ON = "#FF9700"
 
 
 class Clock(tk.Tk):
+
     def __init__(self):
         """
-            Inicializa a tela do relógio
+            Inicializa e executa o relógio
         """
         super().__init__()
 
@@ -46,7 +47,8 @@ class Clock(tk.Tk):
 
         self.update_time()
 
-    def translate_hours(self, hours):
+    @staticmethod
+    def translate_hours(hours):
         """
             Define quais letras das horas serão iluminadas
         """
@@ -94,7 +96,8 @@ class Clock(tk.Tk):
         
         return output
 
-    def translate_minutes(self, minutes):
+    @staticmethod
+    def translate_minutes(minutes):
         """
             Define quais serão os minutos iluminados
         """
@@ -164,6 +167,11 @@ class Clock(tk.Tk):
         return output
 
     def translate_time(self, hours, minutes, seconds):
+        """
+            A partir da hora inserida, retorna quais letras devem ser iluminadas. O ponto de segundos
+            fica piscando
+        """
+
         illuminated_letters = list()
 
         illuminated_letters.extend(self.translate_hours(hours=hours))
@@ -175,7 +183,9 @@ class Clock(tk.Tk):
         return illuminated_letters
 
     def update_time(self):
-
+        """
+            Rotina para atualizar a tela do relógio
+        """
         # Reseta as cores das letras
         for i in range(0, len(self.letters)):
             for j in range(0, len(self.letters[i])):
@@ -189,9 +199,8 @@ class Clock(tk.Tk):
         minutes = int(time.strftime("%M", current_time))
         seconds = int(time.strftime("%S", current_time))
 
-        # Teste Horas:
-        # hours = 23  # 0 a 23
-        # Teste Minutos:
+        # Teste do relógio:
+        # hours = 0  # 0 a 23
         # minutes = seconds
 
         illuminated_letters = self.translate_time(
